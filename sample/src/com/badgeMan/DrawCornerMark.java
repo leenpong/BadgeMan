@@ -22,6 +22,9 @@ import android.widget.ImageView;
 
 
 public class DrawCornerMark {
+	
+	
+	
 	static String imagefile=null;
 	static int TabPosition;//标题导航栏位置
 	static int CornerMarkPosition;//角标位置
