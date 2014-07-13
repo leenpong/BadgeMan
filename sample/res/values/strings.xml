@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="app_name">徽标达人</string>
+    <string name="action_contact">Contact</string>
+    <string name="Break">《返回</string>
+    <string name="title">用户反馈      </string>
+    <string name="name">姓名</string>
+    <string name="save">保存</string>
+    <string name="share">分享</string>
+    <string name="number">微信号</string>
+    <string name="advise">反馈问题</string>
+    <string name="OK">提交</string>
+    <string name="forehead">不爽就要吐槽，备好皮鞭侍侯产品经理</string>
+    <string name="feedback">用户反馈</string>
+    <string name="demand">徽标需求提交</string>
+    <string name="explain">产品＆团队</string>
+    <string name="chanping">产品</string>
+    <string name="chanping_text">"       "徽标达人源于射鸡师Suki给微信头像加“难受死强迫症们”的未读消息角标，引来很多朋友要求帮忙PS，我们意识到在这个批量生产、严重同质的时代，我们需要表达态度、彰显个性的空间并千方百计找寻、争取，即便头像有限的方寸之间。"\n""       " 小小徽标，个性宣言！每个人都应与众不同、有态度，而非千人一面的路人甲乙丙丁，不是吗！
+ </string>
+    <string name="tuandui">团队</string>
+    <string name="ERCHN">产品汪 "\n"@ERCHN</string>
+    <string name="Tamic">UI射鸡师 "\n" @Tamic</string>
+    <string name="suki">UX射鸡师 "\n" @suki</string>
+    <string name="leenpong">攻城狮 "\n" @leenpong</string>
+    <string name="yibin">攻城狮 "\n" @周益滨</string>
+    <string name="chenbin">攻城狮  "\n"@陈斌</string>
+</resources>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="248dip"
+    android:layout_height="210dip"
+    android:background="@drawable/tabs_pattern_diagonal">
+    
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dip">
+     <Button
+         android:id="@+id/close_shareButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dip"
+        android:textSize="20sp"
+        android:background="#ffffff"
+        android:textColor="#B23AEE"
+        android:text="关闭"/>
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:text="分享到"/>
+    </FrameLayout>
+    
+    
+    <LinearLayout
+    android:layout_weight="1" 
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:paddingTop="10dip"
+    android:layout_height="wrap_content">
+    
+     <LinearLayout
+    android:layout_weight="1" 
+    android:orientation="vertical"
+    android:paddingRight="10dip"
+    	android:paddingLeft="10dip"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">"
+    <ImageButton
+        android:id="@+id/weixin_imageButton" 
+        android:layout_width="fill_parent"
+    	android:layout_height="56dip"
+        android:background="@drawable/weixin"/>
+    <TextView 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:gravity="center"
+    	android:textColor="#000000"
+    	android:text="微信"/>
+    </LinearLayout>
+    
+    <LinearLayout
+    android:layout_weight="1" 
+    android:orientation="vertical"
+    android:paddingRight="10dip"
+    	android:paddingLeft="10dip"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <ImageButton
+        android:id="@+id/wenxinhome_imageButton" 
+        android:layout_width="fill_parent"
+    	android:layout_height="56dip"
+    	
+        android:background="@drawable/weixinhome"/>
+    <TextView 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:gravity="center"
+    	android:textColor="#000000"
+    	android:text="朋友圈"/>
+    </LinearLayout>
+    
+    
+    <LinearLayout
+    android:layout_weight="1" 
+    android:orientation="vertical"
+    android:paddingRight="10dip"
+    	android:paddingLeft="10dip"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <ImageButton
+        android:id="@+id/QQ_imageButton" 
+        android:layout_width="fill_parent"
+    	android:layout_height="56dip"
+        android:background="@drawable/qq"/>
+    <TextView 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:gravity="center"
+    	android:textColor="#000000"
+    	android:text="QQ"/>
+    </LinearLayout>
+    </LinearLayout>
+    
+    
+    
+    
+    
+    <LinearLayout
+    android:layout_weight="1" 
+    android:paddingTop="10dip"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+     <LinearLayout
+    android:layout_weight="1" 
+    android:orientation="vertical"
+    android:paddingRight="10dip"
+    	android:paddingLeft="10dip"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <ImageButton
+        android:id="@+id/QQhome_imageButton" 
+        android:layout_width="fill_parent"
+    	android:layout_height="56dip"
+        android:background="@drawable/qqhome"/>
+    <TextView 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:gravity="center"
+    	android:textColor="#000000"
+    	android:text="QQ空间"/>
+    </LinearLayout>
+    
+    <LinearLayout
+    android:layout_weight="1" 
+    android:orientation="vertical"
+    android:paddingRight="10dip"
+    	android:paddingLeft="10dip"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <ImageButton
+        android:id="@+id/weibo_imageButton" 
+        android:layout_width="fill_parent"
+    	android:layout_height="56dip"
+        android:background="@drawable/weibo"/>
+    <TextView 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:gravity="center"
+    	android:textColor="#000000"
+    	android:text="微博"/>
+    </LinearLayout>
+    
+    
+    <LinearLayout
+    android:layout_weight="1" 
+    android:orientation="vertical"
+    android:paddingRight="10dip"
+    	android:paddingLeft="10dip"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <ImageButton
+        android:id="@+id/renren_imageButton" 
+        android:layout_width="fill_parent"
+    	android:layout_height="56dip"
+    	android:paddingRight="5dip"
+        android:background="@drawable/renren"/>
+    <TextView 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:gravity="center"
+    	android:textColor="#000000"
+    	android:text="人人"/>
+    </LinearLayout>
+    
+    
+    </LinearLayout>
+    
+</LinearLayout>

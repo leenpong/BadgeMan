@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="50dip"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:id="@+id/gridViewItemLayout">"
+    <ImageView 
+        android:id="@+id/girdViewImageView"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip"
+        android:layout_marginTop="15dip"
+        android:src="@drawable/china"/>
+    <TextView 
+        android:id="@+id/girdViewTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="中国"/>
+</LinearLayout>
