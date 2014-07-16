@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener{
 		
 		
 		
-		
+		//ĞŞ¸Ä´úÂë
 		
 		
 		
