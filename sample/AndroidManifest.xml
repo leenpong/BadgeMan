@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.badgeMan"
-    android:versionCode="056"
-    android:versionName="0.5.6" >
+    android:versionCode="100"
+    android:versionName="1.0.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="17" />
  <uses-permission android:name="android.permission.RESTART_PACKAGES" /> 
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
+<uses-permission android:name="android.permission.INTERNET" />
 
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> 
 <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> 
 <uses-permission android:name="android.permission.INTERNET" /> 
-
+<!-- renren sdk 需要的权限 ，必须在AndroidManifest.xml中声明 -->
+	<uses-permission android:name="android.permission.INTERNET" />
+	
+	<uses-permission android:name="android.permission.READ_LOGS" />  
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -31,10 +38,41 @@
              >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+				<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+       <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1101739134" /> <!-- 100380359 100381104 222222 -->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        
+        
+        
+			
+		
+		
+		<!-- 发布照片的Activity，如需使用一键上传图片的功能，则必须在AndroidManifest.xml中声明 -->
+		<activity android:name="com.renren.api.connect.android.photos.UploadPhotoActivity"></activity>
+		
+		<activity
+			android:name="com.renren.api.connect.android.AuthorizationHelper$BlockActivity"
+			android:theme="@android:style/Theme.Dialog"></activity>
+		
     </application>
 
 </manifest>

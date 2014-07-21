@@ -24,7 +24,7 @@ public class ExplainFragment extends Fragment {
 	TextView team04;
 	TextView team05;
 	TextView team06;
-	SecondFragment secondfragment = new SecondFragment();
+	InterfaceOfMainFragment secondfragment = new InterfaceOfMainFragment();
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

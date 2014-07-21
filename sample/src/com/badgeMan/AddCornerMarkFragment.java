@@ -1,12 +1,26 @@
 package com.badgeMan;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.text.SimpleDateFormat;
+
+import com.astuetz.viewpager.extensions.PagerSlidingTabStrip;
+import com.badgeMan.R;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -22,66 +36,54 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.astuetz.viewpager.extensions.PagerSlidingTabStrip;
 
-
-
-
+/**æ·»åŠ è§’æ ‡ç•Œé¢ç±»*/
 @SuppressWarnings("deprecation")
 @SuppressLint("NewApi")
 public class AddCornerMarkFragment extends Fragment
 {
-	private PagerSlidingTabStrip tabs;//PagerSlidingTabStrip¿Ø¼ş
-	private ViewPager pager;//ViewPager¿Ø¼ş
-	private ContactPagerAdapter adapter;//ºÍViewPager¹ØÁªµÄ¹ÜÀíÆ÷
-	private Button savaButton;//±£´æ°´Å¥
+	private PagerSlidingTabStrip tabs;//PagerSlidingTabStripæ§ä»¶
+	private ViewPager pager;//ViewPageræ§ä»¶
+	private ContactPagerAdapter adapter;//å’ŒViewPagerå…³è”çš„ç®¡ç†å™¨
+	private Button savaButton;//ä¿å­˜æŒ‰é’®
 	private Resources r;
-	private ImageView promptImageView;//Òıµ¼Í¼Æ¬£¨µã»÷ÎÒ¿´Ò»ÏÂ£©
-	private ImageView image;//Í¼Æ¬ÇøÓò¿Ø¼ş
-	private Button shareButton;//·ÖÏí°´Å¥
-	private Button beginButton;//Ê×Ò³°´Å¥
-	private Bitmap Returnimage;//´Ó²Ã¼ô½çÃæ·µ»ØÀ´µÄÊı¾İ
-	private static int changePicture=0;//µ±ÖµÎªÅ¼ÊıÊ±£¬±íÊ¾ÓÃ»§µÄÍ¼Æ¬ÊÇËõĞ¡ĞÍ£¬µ±ÎªÆæÊıÊ±±íÊ¾È«²¿ĞÍ
-	
-	private SecondFragment secondfragment = new SecondFragment();//Ö÷½çÃæfragment
-	
-	
+	private ImageView promptImageView;//å¼•å¯¼å›¾ç‰‡
+	private ImageView image;//å›¾ç‰‡åŒºåŸŸæ§ä»¶
+	private Button shareButton;//åˆ†äº«æŒ‰é’®
+	private Button beginButton;//é¦–é¡µæŒ‰é’®
+	private Bitmap Returnimage;//ä»è£å‰ªç•Œé¢è¿”å›æ¥çš„æ•°æ®
+	private static int changePicture=0;//å½“å€¼ä¸ºå¶æ•°æ—¶ï¼Œè¡¨ç¤ºç”¨æˆ·çš„å›¾ç‰‡æ˜¯ç¼©å°å‹ï¼Œå½“ä¸ºå¥‡æ•°æ—¶è¡¨ç¤ºå…¨éƒ¨å‹
+	private InterfaceOfMainFragment secondfragment = new InterfaceOfMainFragment();//ä¸»ç•Œé¢fragment
 	
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        
-        
     }
      
     @SuppressLint("CutPasteId")
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-    	
-		   	
 		View root = inflater.inflate(R.layout.addcornermarkfragment, container, false);
 		if (getActivity() instanceof MainActivity) {
 			MainActivity ma = (MainActivity) getActivity();
-			Returnimage = ma.getReturnPhoto();
-			
+			Returnimage = ma.getReturnPhoto();	
 		}
 		tabs = (PagerSlidingTabStrip) root.findViewById(R.id.tabs);
-		
-		tabs.setShouldExpand(true);//ÈÃPagerSlidingTabStripÉÏÃæµÄtabstripÆ½·Ö
-		//tabs.setTextColor(Color.parseColor("#836FFF"));//tabstrip×ÖÌåÑÕÉ«
-		tabs.setIndicatorColor(Color.parseColor("#36c8b3"));//¸øtabstripÉèÖÃ»¬¶¯ÏÂ»®ÏßµÄÑÕÉ«
+		tabs.setShouldExpand(true);//è®©PagerSlidingTabStripä¸Šé¢çš„tabstripå¹³åˆ†
+		//tabs.setTextColor(Color.parseColor("#836FFF"));//tabstripå­—ä½“é¢œè‰²
+		tabs.setIndicatorColor(Color.parseColor("#36c8b3"));//ç»™tabstripè®¾ç½®æ»‘åŠ¨ä¸‹åˆ’çº¿çš„é¢œè‰²
 		//tabs.setUnderlineColor(Color.parseColor("#FFFFFF"));
 		//tabs.setDividerColor(Color.parseColor("#FFFFFF"));
 		pager = (ViewPager) root.findViewById(R.id.pager);
 		adapter = new ContactPagerAdapter();
 		r = this.getResources();
 		pager.setAdapter(adapter);
-		//tabs.setIndicatorColor(currentColor);//tabstrip±³¾°É«
+		//tabs.setIndicatorColor(currentColor);//tabstripèƒŒæ™¯è‰²
 		image=(ImageView)root.findViewById(R.id.imageView1);
 		promptImageView=(ImageView)root.findViewById(R.id.promptImage);
-		if (getActivity() instanceof MainActivity) {//ÅĞ¶ÏÊÇ·ñµÚÒ»´ÎÆô¶¯
+		if (getActivity() instanceof MainActivity) {//åˆ¤æ–­æ˜¯å¦ç¬¬ä¸€æ¬¡å¯åŠ¨
 			
 			MainActivity ma = (MainActivity) getActivity();
 			if(ma.ifFirstRun()){
@@ -93,37 +95,35 @@ public class AddCornerMarkFragment extends Fragment
 		savaButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
 				DrawCornerMark.SaveBitmap(getActivity(),image);
-				
-				Toast.makeText(getActivity(), "±£´æ³É¹¦"+DrawCornerMark.imagefile, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "ä¿å­˜æˆåŠŸ,ä¿å­˜åœ¨ï¼š"+"å›¾åº“/å¾½æ ‡è¾¾äºº", Toast.LENGTH_SHORT).show();
 			}
 		});
 		
-		//·ÖÏí°´Å¥
+		//åˆ†äº«æŒ‰é’®
 		shareButton=(Button)root.findViewById(R.id.shareButton);
 		shareButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 		
-				 Dialog dialog = new ShareDialog(getActivity(), R.style.MyDialog,image);//µ÷ÓÃÖØĞ´µÄdialog
+				 Dialog dialog = new ShareDialog(getActivity(), R.style.MyDialog,image);//è°ƒç”¨é‡å†™çš„dialog
 	                
-	                dialog.setContentView(R.layout.share_dialog);//ÉèÖÃËüµÄContentView
+	                dialog.setContentView(R.layout.share_dialog);//è®¾ç½®å®ƒçš„ContentView
 	                Window window = dialog.getWindow();  
-	                 window.setWindowAnimations(R.style.MyDialog);  //Ìí¼Ó¶¯»­ 
+	                 window.setWindowAnimations(R.style.MyDialog);  //æ·»åŠ åŠ¨ç”» 
 	                dialog.show();
 	                
 			}
 		});
 		
 		
-		//·µ»Ø°´Å¥
+		//è¿”å›æŒ‰é’®
 		beginButton=(Button)root.findViewById(R.id.beginButton);
 		beginButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				
-				Toast.makeText(getActivity(), "»¶Ó­»Øµ½Ê×Ò³", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "æ¬¢è¿å›åˆ°é¦–é¡µ", Toast.LENGTH_SHORT).show();
 				if (getActivity() == null){
 					 return;
 				}
@@ -182,7 +182,7 @@ public class AddCornerMarkFragment extends Fragment
     
     public class ContactPagerAdapter extends PagerAdapter {
 
-    	private final String[] TITLES = { "¼¤ÇéÊÀ½ç±­", "ÍøÂç¸öĞÔ","¸ü¶à"};
+    	private final String[] TITLES = { "æ¿€æƒ…ä¸–ç•Œæ¯", "ç½‘ç»œä¸ªæ€§","æ›´å¤š"};
     	
 		public ContactPagerAdapter() {
 			super();
@@ -201,17 +201,16 @@ public class AddCornerMarkFragment extends Fragment
 		public Object instantiateItem(ViewGroup container,  final int position) {
 			// looks a little bit messy here
 		
-			//»ñµÃÊÖ»ú½çÃæµÄ¿í
-			WindowManager wm = getActivity().getWindowManager();
+			
+			WindowManager wm = getActivity().getWindowManager();//è·å¾—æ‰‹æœºç•Œé¢çš„å®½
 		     int width = wm.getDefaultDisplay().getWidth();
 		     if(position<2){
-		    	//½«ËüÈıµÈ·İ
+		    	//å°†å®ƒä¸‰ç­‰ä»½
 		    	 GridView gv=new GridView(getActivity());
 			        gv.setColumnWidth(width/3);  
 			        gv.setNumColumns(GridView.AUTO_FIT);  
 			        
-			        
-			        switch(position){//¸ù¾İGridviewÊÇÄÇ¸öÒ³Ãæ£¬Ñ¡Ôñ²»Í¬µÄÍ¼Æ¬×ÊÔ´
+			        switch(position){//æ ¹æ®Gridviewæ˜¯é‚£ä¸ªé¡µé¢ï¼Œé€‰æ‹©ä¸åŒçš„å›¾ç‰‡èµ„æº
 			        case 0:gv.setAdapter(new ImageAdapter(getActivity(),0));
 			        		break;
 			        case 1:gv.setAdapter(new ImageAdapter(getActivity(),1));
@@ -221,15 +220,14 @@ public class AddCornerMarkFragment extends Fragment
 			        }
 			        gv.setOnItemClickListener(new Gallery.OnItemClickListener(){
 			        	   public void onItemClick(AdapterView<?> parent, View arg1, int Sposition,long arg3) {
-			        		  
-			        	   
-			        		 //Ñ¡ÖĞµÄÍ¼Æ¬±äÉ«
-			            	   //arg1.setBackgroundResource(R.drawable.background_tabs_diagonal);
+			        		
+			        	   //arg1.setBackgroundResource(R.drawable.background_tabs_diagonal);//é€‰ä¸­çš„å›¾ç‰‡å˜è‰²
+			        		   
 			        	   for(int i=0;i<parent.getCount();i++){
 			        	               @SuppressWarnings("unused")
-									View v=parent.getChildAt(i);
+			        	               View v=parent.getChildAt(i);
 			        	               if (Sposition == i) {
-			        	            	   //»­½Ç±ê
+			        	            	   //ç”»è§’æ ‡
 			        	            	   DrawCornerMark.doCornerMark(Returnimage,r, image, position,Sposition);   
 			        	               } 
 			        	           }
@@ -239,27 +237,25 @@ public class AddCornerMarkFragment extends Fragment
 					return gv;
 		     }else{
 		    	 
-		    	 //gv.setColumnWidth(width); 
-		    	 View view = LayoutInflater.from(getActivity()).inflate(R.layout.gridviewotheritem, null); //mContextÖ¸µÄÊÇµ÷ÓÃµÄActivtt
-		    	 TextView gridviewtextView3=(TextView)view.findViewById(R.id.gridviewtextView3);
-		    	gridviewtextView3.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-		    	 container.addView(view, 0); 
-		    	 gridviewtextView3.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						 EmailFragment mailfragment02 = new EmailFragment();
-			        	 mailfragment02.Setpage(1);
-			        	 getFragmentManager()
-			    		 .beginTransaction()
-			    		 .replace(R.id.main_layout, mailfragment02)
-			    		 .commit();
+		    	 	//gv.setColumnWidth(width); 
+		    	 	View view = LayoutInflater.from(getActivity()).inflate(R.layout.gridviewotheritem, null); //mContextæŒ‡é”Ÿæ–¤æ‹·é”Ÿè§’ç¢‰æ‹·é”ŸçŸ«ç¢‰æ‹·Activtt
+		    	 	TextView gridviewtextView3=(TextView)view.findViewById(R.id.gridviewtextView3);
+		    	 	gridviewtextView3.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+		    	 	container.addView(view, 0); 
+		    	 	gridviewtextView3.setOnClickListener(new View.OnClickListener() {
+		    	 		@Override
+		    	 		public void onClick(View v) {
+		    	 			EmailFragment mailfragment02 = new EmailFragment();
+		    	 			mailfragment02.Setpage(1);
+		    	 			getFragmentManager()
+		    	 			.beginTransaction()
+		    	 			.replace(R.id.main_layout, mailfragment02)
+		    	 			.commit();
 			        	 
-					}
-				});
+		    	 		}
+		    	 	});
 		    	 return view;
 		     }
-		     
-			
 		}
 
 		@Override

@@ -1,13 +1,32 @@
 package com.badgeMan;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 
+import com.badegMan.wxapi.weixinUtil;
 import com.badgeMan.R;
+import com.sina.weibo.sdk.api.ImageObject;
+import com.sina.weibo.sdk.api.TextObject;
+import com.sina.weibo.sdk.api.WeiboMessage;
+import com.sina.weibo.sdk.api.WeiboMultiMessage;
+import com.sina.weibo.sdk.api.share.IWeiboDownloadListener;
+import com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest;
+import com.tencent.connect.share.QQShare;
+import com.tencent.mm.sdk.openapi.SendMessageToWX;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.sdk.openapi.WXImageObject;
+import com.tencent.mm.sdk.openapi.WXMediaMessage;
 
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -16,11 +35,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+/**åˆ†äº«ç±»
+ * è¯¥ç±»ä¸»è¦å®ç°äº†å¼¹å‡ºçš„åˆ†äº«çª—å£çš„åŠŸèƒ½*/
 public class ShareDialog extends Dialog {
 	
     Context context;
-    private ImageView image;//Í¼Æ¬ÇøÓò¿Ø¼ş
-   
+    private ImageView image;//å›¾ç‰‡åŒºåŸŸæ§ä»¶
+    MainActivity ma;
     public ShareDialog(Context context,ImageView image) {
         super(context);
        
@@ -35,7 +56,9 @@ public class ShareDialog extends Dialog {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        
+    	if (context instanceof MainActivity) {
+			ma = (MainActivity) context;
+		}
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.share_dialog);
         ImageButton weibo_imageButton=(ImageButton)findViewById(R.id.weibo_imageButton);
@@ -46,19 +69,42 @@ public class ShareDialog extends Dialog {
         ImageButton renren_imageButton=(ImageButton)findViewById(R.id.renren_imageButton);
         Button close_shareButton=(Button)findViewById(R.id.close_shareButton);
         
-        //·ÖÏíµ½Î¢²©µÄ°´Å¥
+      //åˆ†äº«åˆ°å¾®åšçš„æŒ‰é’®
         weibo_imageButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				 
 				try{
-					doShare(StrResources.weiboPackage,StrResources.weiboActivityName,false);
+					//è°ƒç”¨ç¬¬ä¸‰æ–¹åº”ç”¨å®ç°å¾®åšåˆ†äº«
+					//doShare(StrResources.weiboPackage,StrResources.weiboActivityName,false);
+					
+					//æ–°æµªå¾®åšæ³¨å†Œ
+					ma.mWeiboShareAPI.registerApp();
+					// 1. åˆå§‹åŒ–å¾®åšçš„åˆ†äº«æ¶ˆæ¯
+			        DrawCornerMark.SaveBitmap(context,image);
+			        WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
+			        ImageObject imageObject = new ImageObject();
+			        BitmapDrawable bitmapDrawable = (BitmapDrawable) DrawCornerMark.Image.getDrawable();
+			        imageObject.setImageObject(bitmapDrawable.getBitmap());
+			        weiboMessage.mediaObject=imageObject;
+			        
+			     // 2. åˆå§‹åŒ–ä»ç¬¬ä¸‰æ–¹åˆ°å¾®åšçš„æ¶ˆæ¯è¯·æ±‚
+			        SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();
+			     // ç”¨transactionå”¯ä¸€æ ‡è¯†ä¸€ä¸ªè¯·æ±‚
+			        request.transaction = String.valueOf(System.currentTimeMillis());
+			        request.multiMessage = weiboMessage;
+			        
+			     // 3. å‘é€è¯·æ±‚æ¶ˆæ¯åˆ°å¾®åšï¼Œå”¤èµ·å¾®åšåˆ†äº«ç•Œé¢
+			        ma.mWeiboShareAPI.sendRequest(request);
+			        
+			        
 				}catch(Exception e){
-					Toast.makeText(context, "¶Ô²»Æğ£¬ÄúÎ´°²×°Î¢²©Èí¼ş,²»Ö§³Ö¸Ã·ÖÏí¹¦ÄÜ",Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "å¯¹ä¸èµ·ï¼Œæ‚¨æ²¡æœ‰å®‰è£…æ–°æµªå¾®åšç›¸åº”çš„è½¯ä»¶ï¼Œä¸æ”¯æŒè¯¥åˆ†äº«åŠŸèƒ½",Toast.LENGTH_LONG).show();
 				}
 			}
 		});
         
+        //å…³é—­åˆ†äº«çª—å£æŒ‰é’®
         close_shareButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -66,64 +112,115 @@ public class ShareDialog extends Dialog {
 				try{
 					dismiss();
 				}catch(Exception e){
-					Toast.makeText(context, "¶Ô²»Æğ£¬¹Ø±ÕÊ§°Ü",Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "",Toast.LENGTH_LONG).show();
 				}
 			}
 		});
         
+        //åˆ†äº«åˆ°QQç©ºé—´æŒ‰é’®
         QQhome_imageButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				
 				try{
-					doShare(StrResources.QQHomePackage,StrResources.QQHomeActivityName,false);
+					//è°ƒç”¨ç¬¬ä¸‰æ–¹åº”ç”¨å®ç°QQç©ºé—´åˆ†äº«
+					//doShare(StrResources.QQHomePackage,StrResources.QQHomeActivityName,false);
+					
+					//1åˆå§‹åŒ–åˆ†äº«æ¶ˆæ¯
+					DrawCornerMark.SaveBitmap(context,image);
+					Bundle params = new Bundle();
+					params.putString(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL,DrawCornerMark.imagefile);
+					params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "yingyong");
+					params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_IMAGE);
+					params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO_QQ_FLAG_QZONE_AUTO_OPEN);
+					//è°ƒç”¨åˆ†äº«æ¥å£
+					ma.mTencent.shareToQQ(ma, params, new BaseUIListener(context)); 
 				}catch(Exception e){
-					Toast.makeText(context, "¶Ô²»Æğ£¬ÄúÎ´°²×°QZoneÈí¼ş,²»Ö§³Ö¸Ã·ÖÏí¹¦ÄÜ",Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "å¯¹ä¸èµ·ï¼Œæ‚¨æ²¡æœ‰å®‰è£…QZoneç›¸åº”çš„è½¯ä»¶ï¼Œä¸æ”¯æŒè¯¥åˆ†äº«åŠŸèƒ½",Toast.LENGTH_LONG).show();
 				}
 			}
 		});
         
+        //åˆ†äº«åˆ°å¾®ä¿¡æŒ‰é’®
         weixin_imageButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				ShareFromWeixin(SendMessageToWX.Req.WXSceneSession);
 				
-				try{
-					doShare(StrResources.weixinPackage,StrResources.weixinHomeActivityName,true);
-				}catch(Exception e){
-					Toast.makeText(context, "¶Ô²»Æğ£¬ÄúÎ´°²×°Î¢ĞÅÈí¼ş,²»Ö§³Ö¸Ã·ÖÏí¹¦ÄÜ",Toast.LENGTH_LONG).show();
-				}
 			}
 		});
+        
+        //åˆ†äº«åˆ°QQæŒ‰é’®
         QQ_imageButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				
 				try{
-					doShare(StrResources.QQPackage,StrResources.QQActivityName,false);
+					DrawCornerMark.SaveBitmap(context,image);
+					//doShare(StrResources.QQPackage,StrResources.QQActivityName,false);
+					Bundle params = new Bundle();
+					params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
+				    params.putString(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL,DrawCornerMark.imagefile);
+				    params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "yingyong");
+				    params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_IMAGE);
+				   // params.putInt(QQShare.SHARE_TO_QQ_EXT_INT, QQShare.SHARE_TO);	
+				    ma.mTencent.shareToQQ(ma, params, new BaseUIListener(context)); 
+					
 				}catch(Exception e){
-					Toast.makeText(context, "¶Ô²»Æğ£¬ÄúÎ´°²×°QQÈí¼ş,²»Ö§³Ö¸Ã·ÖÏí¹¦ÄÜ",Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "å¯¹ä¸èµ·ï¼Œæ‚¨æ²¡æœ‰å®‰è£…QQç›¸åº”çš„è½¯ä»¶ï¼Œä¸æ”¯æŒè¯¥åˆ†äº«åŠŸèƒ½",Toast.LENGTH_LONG).show();
 				}
 			}
 		});
+        
+        //åˆ†äº«åˆ°æœ‹å‹åœˆæŒ‰é’®
         wenxinhome_imageButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				ShareFromWeixin(SendMessageToWX.Req.WXSceneTimeline);
 				
-				try{
-					doShare(StrResources.weixinPackage,StrResources.weixinActivityName,false);
-				}catch(Exception e){
-					Toast.makeText(context, "¶Ô²»Æğ£¬ÄúÎ´°²×°Î¢ĞÅÈí¼ş,²»Ö§³Ö¸Ã·ÖÏí¹¦ÄÜ",Toast.LENGTH_LONG).show();
-				}
 			}
 		});
+        
+        //åˆ†äº«åˆ°äººäººç½‘æŒ‰é’®
         renren_imageButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				
 				try{
-					doShare(StrResources.renrenPackage,StrResources.renrenActivityName,false);
+					//doShare(StrResources.renrenPackage,StrResources.renrenActivityName,false);
+					
+					// è¯»å–assetsæ–‡ä»¶å¤¹ä¸‹çš„å›¾ç‰‡ï¼Œä¿å­˜åœ¨æ‰‹æœºä¸­
+					String fileName = "renren.png";
+					// è·å–æ–‡ä»¶åç¼€ï¼Œæ„é€ æœ¬åœ°æ–‡ä»¶å
+					int index = fileName.lastIndexOf('.');
+					// æ–‡ä»¶ä¿å­˜åœ¨/sdcardç›®å½•ä¸‹ï¼Œä»¥renren_å‰ç¼€åŠ ç³»ç»Ÿæ¯«ç§’æ•°æ„é€ æ–‡ä»¶å
+					final String realName = "renren_" + System.currentTimeMillis()
+							+ fileName.substring(index, fileName.length());
+					try {
+						InputStream is = ma.getResources().getAssets().open(fileName);
+						BufferedOutputStream bos = new BufferedOutputStream(
+						ma.openFileOutput(realName, Context.MODE_PRIVATE));
+						int length = 0;
+						byte[] buffer = new byte[1024];
+						while ((length = is.read(buffer)) != -1) {
+							bos.write(buffer, 0, length);
+						}
+						is.close();
+						bos.close();
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					String filePath = ma.getFilesDir().getAbsolutePath() + "/"
+							+ realName;
+					
+					// ä»¥ä¸Šå‡†å¤‡å¥½äº†Fileå‚æ•°
+					// ä¸‹é¢è°ƒç”¨SDKæ¥å£
+					ma.renren.publishPhoto(ma, new File(filePath), "ä¼ å…¥çš„é»˜è®¤å‚æ•°");
+					
 				}catch(Exception e){
-					Toast.makeText(context, "¶Ô²»Æğ£¬ÄúÎ´Î´°²×°ÈËÈËÍø,²»Ö§³Ö¸Ã·ÖÏí¹¦ÄÜ",Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "å¯¹ä¸èµ·ï¼Œæ‚¨æ²¡æœ‰å®‰è£…äººäººç½‘ç›¸åº”çš„è½¯ä»¶ï¼Œä¸æ”¯æŒè¯¥åˆ†äº«åŠŸèƒ½",Toast.LENGTH_LONG).show();
 				}
 				
 			}
@@ -131,39 +228,78 @@ public class ShareDialog extends Dialog {
         
     }
 
-    
-    
-    protected void doShare(String packageName,String activityName,boolean ifwenxin){
-    	 Intent intent=new Intent(Intent.ACTION_SEND);
-	      intent.putExtra(Intent.EXTRA_SUBJECT,"·ÖÏí");
-	      DrawCornerMark.SaveBitmap(context,image);
-	      File f = new File(DrawCornerMark.imagefile);
-	      if (DrawCornerMark.imagefile == null || DrawCornerMark.imagefile.equals("")) {    
-	    	   intent.setType("text/plain"); // ´¿ÎÄ±¾    
-	    	  } else {    
-	    	       
-	    	   if (f != null && f.exists() && f.isFile()) {    
-	    	    intent.setType("image/*");  
-	    	    Uri u = Uri.fromFile(f);
-	    	    intent.putExtra("Kdescription", "#»Õ±ê´ïÈËÉÏÏßÀ²#ÎÒµÄÇò¶ÓÎÒµÄ»Õ±ê£¬´ø×ÅÌ¬¶È¿´ÊÀ½ç±­£¡¸üÓĞ¡°ÄÑÊÜËÀ¸÷ÖÖÇ¿ÆÈÖ¢ÃÇ¡±µÄ¶ñ×÷¾ç½Ç±ê£¡¸÷´óandoirdÓ¦ÓÃÊĞ³¡ËÑË÷£º»Õ£¨hui£©±ê´ïÈË£¬ios°æ¿ª·¢ÖĞ...");
-	    	    if(!ifwenxin){
-	    	    	intent.putExtra(Intent.EXTRA_TEXT, "#»Õ±ê´ïÈËÉÏÏßÀ²#ÎÒµÄÇò¶ÓÎÒµÄ»Õ±ê£¬´ø×ÅÌ¬¶È¿´ÊÀ½ç±­£¡¸üÓĞ¡°ÄÑÊÜËÀ¸÷ÖÖÇ¿ÆÈÖ¢ÃÇ¡±µÄ¶ñ×÷¾ç½Ç±ê£¡¸÷´óandoirdÓ¦ÓÃÊĞ³¡ËÑË÷£º»Õ£¨hui£©±ê´ïÈË£¬ios°æ¿ª·¢ÖĞ...");
-	    	    }
-	    	    
-	    	    intent.putExtra(Intent.EXTRA_STREAM, u);
-	    	    
-	    	    
-	    	    
-	    	   }    
-	    	  }    
-	      ComponentName componetName = new ComponentName(
-	    		  packageName, activityName); 
-	      intent.setComponent(componetName);
-	      context.startActivity(intent);
-	     
-	      if (context == null){
-	    	  
-				 return;
+    //å¾®ä¿¡åˆ†äº«å®ç°æ–¹æ³•
+    protected void ShareFromWeixin(int scene){
+    	
+		ma.api.registerApp("wx6f834871703de655");
+    	try{
+			DrawCornerMark.SaveBitmap(context,image);
+			String path = DrawCornerMark.imagefile;
+			File file = new File(path);
+			if (!file.exists()) {
+				String tip = context.getString(R.string.send_img_file_not_exist);
+				Toast.makeText(context, tip + " path = " + path, Toast.LENGTH_LONG).show();
+				
 			}
+			WXImageObject imgObj = new WXImageObject();
+			imgObj.setImagePath(path);
+			WXMediaMessage msg = new WXMediaMessage();
+			msg.mediaObject = imgObj;
+			Bitmap bmp = BitmapFactory.decodeFile(path);
+			Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 150, 150, true);
+			bmp.recycle();
+			msg.thumbData = weixinUtil.bmpToByteArray(thumbBmp, true);
+			SendMessageToWX.Req req = new SendMessageToWX.Req();
+			req.transaction =  "img" + System.currentTimeMillis();
+			req.message = msg;
+			req.scene =scene;
+			ma.api.sendReq(req);
+			}catch(Exception e){
+				Toast.makeText(context, "åˆ†äº«å¤±è´¥",Toast.LENGTH_LONG).show();
+			}	
     }
+    
+    
+//    //è°ƒç”¨ç¬¬ä¸‰æ–¹åº”ç”¨çš„åˆ†äº«
+//    protected void doShare(String packageName,String activityName,boolean ifwenxin){
+//    	 Intent intent=new Intent(Intent.ACTION_SEND);
+//	      intent.putExtra(Intent.EXTRA_SUBJECT,"åˆ†äº«");
+//	      DrawCornerMark.SaveBitmap(context,image);
+//	      File f = new File(DrawCornerMark.imagefile);
+//	      if (DrawCornerMark.imagefile == null || DrawCornerMark.imagefile.equals("")) {    
+//	    	   intent.setType("text/plain"); // çº¯æ–‡æœ¬     
+//	    	  } else {    
+//	    	       
+//	    	   if (f != null && f.exists() && f.isFile()) {    
+//	    	    intent.setType("image/*");  
+//	    	    Uri u = Uri.fromFile(f);
+//	    	    intent.putExtra("Kdescription", "#å¾½æ ‡è¾¾äººä¸Šçº¿å•¦#æˆ‘çš„çƒé˜Ÿæˆ‘çš„å¾½æ ‡ï¼Œå¸¦ç€æ€åº¦çœ‹ä¸–ç•Œæ¯ï¼æ›´æœ‰â€œéš¾å—æ­»å„ç§å¼ºè¿«ç—‡ä»¬â€çš„æ¶ä½œå‰§è§’æ ‡ï¼å„å¤§andoirdåº”ç”¨å¸‚åœºæœç´¢ï¼šå¾½ï¼ˆhuiï¼‰æ ‡è¾¾äººï¼Œiosç‰ˆå¼€å‘ä¸­...");
+//	    	    if(!ifwenxin){
+//	    	    	intent.putExtra(Intent.EXTRA_TEXT, "#å¾½æ ‡è¾¾äººä¸Šçº¿å•¦#æˆ‘çš„çƒé˜Ÿæˆ‘çš„å¾½æ ‡ï¼Œå¸¦ç€æ€åº¦çœ‹ä¸–ç•Œæ¯ï¼æ›´æœ‰â€œéš¾å—æ­»å„ç§å¼ºè¿«ç—‡ä»¬â€çš„æ¶ä½œå‰§è§’æ ‡ï¼å„å¤§andoirdåº”ç”¨å¸‚åœºæœç´¢ï¼šå¾½ï¼ˆhuiï¼‰æ ‡è¾¾äººï¼Œiosç‰ˆå¼€å‘ä¸­...");
+//	    	    }
+//	    	    
+//	    	    intent.putExtra(Intent.EXTRA_STREAM, u);
+//	    	    
+//	    	    
+//	    	    
+//	    	   }    
+//	    	  }    
+//	      ComponentName componetName = new ComponentName(
+//	    		  packageName, activityName); 
+//	      intent.setComponent(componetName);
+//	      context.startActivity(intent);
+//	     
+//	      if (context == null){
+//	    	  
+//				 return;
+//			}
+//    }
+    
+    
+//    private String Transaction(final String type) {
+//		return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+//	}
+    
+    
+    
 }

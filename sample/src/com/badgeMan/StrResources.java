@@ -3,12 +3,12 @@ package com.badgeMan;
 import com.badgeMan.R;
 
 public class StrResources {
-	static	public	 String weixinPackage="com.tencent.mm";//Î¢ĞÅ°üÃû
-	static	public   String QQPackage="com.tencent.mobileqq";//QQ°üÃû
-	static	public   String QQHomePackage="com.qzone";//QQ¿Õ¼ä°üÃû
-	static	public   String renrenPackage="com.renren.mobile.android";//ÈËÈËÍø°üÃû
-	static	public   String weiboPackage="com.sina.weibo";//ĞÂÀËÎ¢²©°üÃû
-	//ÎÄ¼şÃû
+	static	public	 String weixinPackage="com.tencent.mm";//å¾®ä¿¡åŒ…å
+	static	public   String QQPackage="com.tencent.mobileqq";//QQåŒ…å
+	static	public   String QQHomePackage="com.qzone";//QQç©ºé—´åŒ…å
+	static	public   String renrenPackage="com.renren.mobile.android";//äººäººç½‘åŒ…å
+	static	public   String weiboPackage="com.sina.weibo";//æ–°æµªå¾®åšåŒ…å
+	//æ–‡ä»¶å
 	static public    String weixinActivityName="com.tencent.mm.ui.tools.ShareToTimeLineUI";
 	static public    String weixinHomeActivityName="com.tencent.mm.ui.tools.ShareImgUI";
 	static public    String QQActivityName="com.tencent.mobileqq.activity.JumpActivity";
@@ -32,7 +32,7 @@ static public Integer[] getIntegers(int position) {
 
 
  private static Integer[][] getIntegerss() {
-	//Í¼Æ¬×ÊÔ´
+	//å›¾ç‰‡èµ„æº
 	Integer[][] imageInteger = {{	R.drawable.algeria,R.drawable.argentina,  
     								R.drawable.australia,R.drawable.belgium,  
     								R.drawable.bosniaanderzegovina,R.drawable.brazil,
@@ -84,17 +84,17 @@ static public Integer[] getIntegers(int position) {
 
 
 	private static String[][] getStringTextss() {
-		//ÎÄ×Ö×ÊÔ´
-		String[][] imageStringTestss = {{	"°¢¶û¼°ÀûÑÇ","°¢¸ùÍ¢","°Ä´óÀûÑÇ","±ÈÀûÊ±","²¨    ºÚ","°Í   Î÷","¿¦ÂóÂ¡","ÖÇ   Àû",
-										"¸çÂ×±ÈÑÇ","¸çË¹´ïÀè¼Ó","¿ÆÌØµÏÍß","¿ËÂŞµØÑÇ","¶ò¹Ï¶à¶û","Ó¢¸ñÀ¼","·¨   ¹ú","µÂ   ¹ú",
-										"¼Ó   ÄÉ","Ï£   À°","ºé¶¼À­Ë¹","ÒÁ   ÀÊ","Òâ´óÀû","ÈÕ   ±¾","º«   ¹ú","Ä«Î÷¸ç",
-										"ÄáÈÕÀûÑÇ","ºÉ   À¼","ÆÏÌÑÑÀ","¶íÂŞË¹","Î÷°àÑÀ","Èğ   Ê¿","ÃÀ   ¹ú","ÎÚÀ­¹ç",
-										"ÖĞ   ¹ú","´óÁ¦Éñ±­"
- 								},{
- 									"0","1","2","3","4","5","6","7","8","9"
- 								},{
- 								
- 								}
+		//æ–‡å­—èµ„æº
+		String[][] imageStringTestss = {{	"é˜¿å°”åŠåˆ©äºš","é˜¿æ ¹å»·","æ¾³å¤§åˆ©äºš","æ¯”åˆ©æ—¶","æ³¢    é»‘","å·´   è¥¿","å–€éº¦éš†","æ™º   åˆ©",
+			"å“¥ä¼¦æ¯”äºš","å“¥æ–¯è¾¾é»åŠ ","ç§‘ç‰¹è¿ªç“¦","å…‹ç½—åœ°äºš","å„ç“œå¤šå°”","è‹±æ ¼å…°","æ³•   å›½","å¾·   å›½",
+			"åŠ    çº³","å¸Œ   è…Š","æ´ªéƒ½æ‹‰æ–¯","ä¼Š   æœ—","æ„å¤§åˆ©","æ—¥   æœ¬","éŸ©   å›½","å¢¨è¥¿å“¥",
+			"å°¼æ—¥åˆ©äºš","è·   å…°","è‘¡è„ç‰™","ä¿„ç½—æ–¯","è¥¿ç­ç‰™","ç‘   å£«","ç¾   å›½","ä¹Œæ‹‰åœ­",
+			"ä¸­   å›½","å¤§åŠ›ç¥æ¯"
+		},{
+			"0","1","2","3","4","5","6","7","8","9"
+		},{
+		
+		}
 	};
 	return   imageStringTestss;
 }

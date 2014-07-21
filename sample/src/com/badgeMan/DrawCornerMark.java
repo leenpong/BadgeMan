@@ -20,47 +20,52 @@ import android.net.Uri;
 import android.os.Environment;
 import android.widget.ImageView;
 
-
+/**ç”»è§’æ ‡ç±»*/
 public class DrawCornerMark {
 	
-	
-	
 	static String imagefile=null;
-	static int TabPosition;//±êÌâµ¼º½À¸Î»ÖÃ
-	static int CornerMarkPosition;//½Ç±êÎ»ÖÃ
-	static int PictureWidth;//Í·Ïñ´óĞ¡
-	static int PictureX;//Í·Ïñ±ß¾à
-	static int cornerMarkWidth=0;//½Ç±ê´óĞ¡
-	//ÏòÍ¼Æ¬¼Ó½Ç±ê
+	static int TabPosition;//æ ‡é¢˜å¯¼èˆªæ ä½ç½®
+	static int CornerMarkPosition;//è§’æ ‡ä½ç½®
+	static int PictureWidth;//å¤´åƒå¤§å°
+	static int PictureX;//å¤´åƒè¾¹è·
+	static int cornerMarkWidth=0;//è§’æ ‡å¤§å°
+	static Bitmap bit;
+	static ImageView Image;
+	static File uri;
+	
+	//å‘å›¾ç‰‡åŠ è§’æ ‡
 	static ImageView doCornerMark(Bitmap picture, Resources r,ImageView image,int tabPosition,int cornerMarkPosition){
 		 Bitmap bitmap = Bitmap.createBitmap(675, 675, Config.ARGB_8888);    
 	     Canvas canvas = new Canvas(bitmap);
 	     TabPosition=tabPosition;
 	     CornerMarkPosition=cornerMarkPosition;
-	     Bitmap cornerMark=null;//½Ç±êÎ»Í¼
-	     switch(tabPosition){//È·¶¨½Ç±êµÄ´óĞ¡
+	     Bitmap cornerMark=null;//è§’æ ‡ä½å›¾
+	     switch(tabPosition){//ç¡®å®šè§’æ ‡çš„å¤§å°
 	     	case 0:cornerMarkWidth=240;break;
 	     	case 1:cornerMarkWidth=255;break;
 	     	case 2:cornerMarkWidth=200;break;
 	     	default:cornerMarkWidth=240;break;
 	     }
 	     if(cornerMarkPosition>=0){
-	    	 cornerMark=BitmapFactory.decodeResource(r,StrResources.getInteger(tabPosition,cornerMarkPosition));//´ò¿ª×ÊÔ´Í¼Æ¬
+	    	 cornerMark=BitmapFactory.decodeResource(r,StrResources.getInteger(tabPosition,cornerMarkPosition));//æ‰“å¼€èµ„æºå›¾ç‰‡
 	    	 
 	     }
 	    	 
         canvas.drawBitmap(BitmapFactory.decodeResource(r,R.drawable.tabs_pattern_diagonal), 0, 0, null);
         canvas.drawBitmap(Bitmap.createScaledBitmap(picture,540+PictureWidth,540+PictureWidth,true), 67-PictureX, 67-PictureX, null);
+        canvas.drawBitmap(BitmapFactory.decodeResource(r,R.drawable.circle), 0, 0, null);
         if(cornerMarkPosition>=0){
         	canvas.drawBitmap(Bitmap.createScaledBitmap(cornerMark,cornerMarkWidth,cornerMarkWidth,true), 675-cornerMarkWidth, 0, null);
         }
         
-        canvas.save(Canvas.ALL_SAVE_FLAG);//±£´æ»­²¼×ÊÔ´  
+        canvas.save(Canvas.ALL_SAVE_FLAG);//ä¿å­˜ç”»å¸ƒèµ„æº  
         
-        canvas.restore();//»­²¼½áÊø
+        canvas.restore();//ç”»å¸ƒç»“æŸ
         @SuppressWarnings("deprecation")
-		Drawable drawable = new BitmapDrawable(bitmap);//¶Ô»­²¼×ÊÔ´½øĞĞ¸ñÊ½×ª»»
-        image.setImageDrawable(drawable); //½«»­²¼×ÊÔ´ºÍImage¿Ø¼ş°ó¶¨
+		Drawable drawable = new BitmapDrawable(bitmap);//å¯¹ç”»å¸ƒèµ„æºè¿›è¡Œæ ¼å¼è½¬æ¢
+        image.setImageDrawable(drawable); //å°†ç”»å¸ƒèµ„æºå’ŒImageæ§ä»¶ç»‘å®š
+        bit=bitmap;
+        Image=image;
         return image;
 	}
 	
@@ -74,12 +79,12 @@ public class DrawCornerMark {
 	     PictureX=pictureX;
 	     Bitmap cornerMark=null;
 	     if(CornerMarkPosition>=0){
-	    	 cornerMark=BitmapFactory.decodeResource(r,StrResources.getInteger(TabPosition,CornerMarkPosition));//´ò¿ª×ÊÔ´Í¼Æ¬
-	    	 
+	    	 cornerMark=BitmapFactory.decodeResource(r,StrResources.getInteger(TabPosition,CornerMarkPosition));//æ‰“å¼€èµ„æºå›¾ç‰‡ 
 	     }
 	    	 
        canvas.drawBitmap(BitmapFactory.decodeResource(r,R.drawable.tabs_pattern_diagonal), 0, 0, null);
        canvas.drawBitmap(Bitmap.createScaledBitmap(picture,540+pictureWidth,540+pictureWidth,true), 67-pictureX, 67-pictureX, null);
+       canvas.drawBitmap(BitmapFactory.decodeResource(r,R.drawable.circle), 0, 0, null);
        if(CornerMarkPosition>=0){
        	canvas.drawBitmap(Bitmap.createScaledBitmap(cornerMark,cornerMarkWidth,cornerMarkWidth,true), 675-cornerMarkWidth, 0, null);
        }
@@ -93,26 +98,28 @@ public class DrawCornerMark {
 	}
 	
 	
-	
+	//ä¿å­˜åˆæˆå¥½çš„å›¾ç‰‡
 	@SuppressLint("SdCardPath")
 	static void SaveBitmap(Context context,ImageView image )  
 	    {  
-			//»ñÈ¡µ±Ç°ÈÕÆÚºÍÊ±¼ä
+			//è·å–å½“å‰æ—¥æœŸå’Œæ—¶é—´
 	        SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyyMMddhhmmss");       
 	        String date= sDateFormat.format(new java.util.Date());
-	        //´æ´¢Â·¾¶  
-	        File file = new File("/sdcard/»Õ±ê´ïÈË/");  
+	        //å­˜å‚¨è·¯å¾„ 
+	        File file = new File("/sdcard/å¾½æ ‡è¾¾äºº/");  
 	        if(!file.exists())  
 	            file.mkdirs();  
 	            try { 
-	            	//ÎÄ¼şÃû
+	            	//æ–‡ä»¶å
 	            	imagefile=file.getPath() + "/"+date+"BadgeMan.png";
+	            	
 	                FileOutputStream fileOutputStream = new FileOutputStream(imagefile);
 	                ((BitmapDrawable)image.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);  
 	                fileOutputStream.close();
-	              //½â¾öÔÚ²¿·Ö»úÆ÷»º´æ¸üĞÂ²»¼°Ê±ÎÊÌâ
+	              //è§£å†³åœ¨éƒ¨åˆ†æœºå™¨ç¼“å­˜æ›´æ–°ä¸åŠæ—¶é—®é¢˜
 	                context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://"+ Environment.getExternalStorageDirectory())));
-	                 
+	                //ContentResolver resolver = context.getContentResolver();
+                    //MediaStore.Images.Media.insertImage(resolver, ((BitmapDrawable)image.getDrawable()).getBitmap(), imagefile, imagefile);
 	            } catch (Exception e) {  
 	                        e.printStackTrace();  
 	        }  

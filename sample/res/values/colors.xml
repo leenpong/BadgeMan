@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_window">#FFE5E5E5</color>
+    <color name="background_window">#00000000</color>
+    <color name="main_bg">#c5ccd4</color>
+    <color name="api_list_bg">#ffffff</color>
+    <color name="log_content_bg">#ffffff</color>
+    <color name="status_hint_text">#47576f</color>
+    <color name="pay_text">#333333</color>
 </resources>

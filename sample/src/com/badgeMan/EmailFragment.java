@@ -23,12 +23,9 @@ public class EmailFragment extends Fragment {
 	EditText Name;
 	EditText advice;
 	EditText WeChat;
-	
-	
-	
 	int Page = 0;
 	
-	SecondFragment secondfragment = new SecondFragment();
+	InterfaceOfMainFragment secondfragment = new InterfaceOfMainFragment();
 	AddCornerMarkFragment addCornerMarkFragment =new AddCornerMarkFragment();
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,17 +39,17 @@ public class EmailFragment extends Fragment {
 		WeChat = (EditText) temp.findViewById(R.id.editText3);
 		if(Page==0){
 			TextView title =  (TextView)temp.findViewById(R.id.textView1);
-			advice.setHint("Çë¾¡¿ÉÄÜÏê¾¡µØÃèÊöÎÊÌâºÍ»úĞÍĞÅÏ¢£¡");
+			advice.setHint("è¯·å°½å¯èƒ½è¯¦å°½åœ°æè¿°é—®é¢˜å’Œæœºå‹ä¿¡æ¯ï¼");
 		}
 		if(Page==1)
 		{
 			TextView title =  (TextView)temp.findViewById(R.id.textView1);
-			title.setText("»Õ±êĞèÇóÌá½»");
+			title.setText("å¾½æ ‡éœ€æ±‚æäº¤");
 			TextView forehead =  (TextView)temp.findViewById(R.id.textView5);
-			forehead.setText("Ö»ÒªÄãÒª,Ö»ÒªÎÒÓĞ£¡");
+			forehead.setText("åªè¦ä½ è¦,åªè¦æˆ‘æœ‰");
 			TextView advise =  (TextView)temp.findViewById(R.id.textView3);
-			advise.setText("ĞèÇóÃèÊö");
-			advice.setHint("¼òµ¥ÃèÊöÄãÆÚÍûÔö¼ÓµÄÆ·ÅÆ»ò·ûºÅµÄÃû³Æ£¬Ó¢ÎÄÃû»ò´óÖÂĞÎ×´£¬ÎÒÃÇÔËÓªºÍÉè¼ÆÊ¦»á¸ú½ø£¡");
+			advise.setText("éœ€æ±‚æè¿°");
+			advice.setHint("ç®€å•æè¿°ä½ æœŸæœ›å¢åŠ çš„å“ç‰Œæˆ–ç¬¦å·çš„åç§°ï¼Œè‹±æ–‡åæˆ–å¤§è‡´å½¢çŠ¶ï¼Œæˆ‘ä»¬è¿è¥å’Œè®¾è®¡å¸ˆä¼šè·Ÿè¿›ï¼");
 		}
 		
 		advice.setOnClickListener(new OnClickListener() {            
@@ -86,9 +83,17 @@ public class EmailFragment extends Fragment {
 		OK.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				@SuppressWarnings("unused")
+				String typeThem=null;
+				if(Page==0){
+					typeThem="ç”¨æˆ·åé¦ˆ\n";
+				}
+				else{
+					typeThem="å¾½æ ‡éœ€æ±‚æäº¤\n";
+				}
 				Intent data = new Intent(Intent.ACTION_SENDTO);
-				data.setData(Uri.parse("mailto:BadgeGeed@163.com"));
-				data.putExtra(Intent.EXTRA_SUBJECT,Name.getText().toString()+WeChat.getText().toString());
+				data.setData(Uri.parse("mailto:BadgeMan@163.com"));
+				data.putExtra(Intent.EXTRA_SUBJECT,typeThem+"å§“åï¼š"+Name.getText().toString()+"\n"+"å¾®ä¿¡å·ï¼š"+WeChat.getText().toString());
 				data.putExtra(Intent.EXTRA_TEXT, advice.getText().toString());
 				startActivity(data);
 				if (getActivity() == null){

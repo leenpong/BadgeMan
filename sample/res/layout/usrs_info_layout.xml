@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:padding="10dip">
+
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="用户uids，使用逗号分割"
+		android:textSize="16sp" android:textColor="#333333" />
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:gravity="center_vertical" android:layout_marginBottom="10dip">
+		<EditText android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:singleLine="true" android:padding="5dip" android:textSize="14sp"
+			android:text="22273771,75799,238492644,259829673" android:id="@+id/ids" />
+		<Button android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="@string/run"
+			android:id="@+id/run" />
+	</LinearLayout>
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="返回结果"
+		android:textSize="16sp" android:textColor="#333333" />
+	<EditText android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:textColor="#000000"
+		android:gravity="top" android:editable="false" android:padding="5dip"
+		android:textSize="14sp" android:scrollbars="vertical" android:id="@+id/log" />
+</LinearLayout>
