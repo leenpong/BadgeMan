@@ -1,10 +1,10 @@
-package com.badgeMan;
+package com.badgeman;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 
-import com.badgeMan.R;
+import com.badgeman.R;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

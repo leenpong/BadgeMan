@@ -1,6 +1,6 @@
-package com.badgeMan;
+package com.badgeman;
 
-import com.badgeMan.R;
+import com.badgeman.R;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;

@@ -1,26 +1,12 @@
-package com.badgeMan;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.text.SimpleDateFormat;
-
-import com.astuetz.viewpager.extensions.PagerSlidingTabStrip;
-import com.badgeMan.R;
-
+package com.badgeman;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Fragment;
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -35,6 +21,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.badgeman.widget.PagerSlidingTabStrip;
 
 
 /**添加角标界面类*/

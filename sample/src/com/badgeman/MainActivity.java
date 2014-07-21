@@ -1,4 +1,4 @@
-package com.badgeMan;
+package com.badgeman;
 
 
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.badgeMan.R;
+import com.badgeman.R;
 import com.renren.api.connect.android.Renren;
 import com.sina.weibo.sdk.api.share.BaseResponse;
 import com.sina.weibo.sdk.api.share.IWeiboDownloadListener;

@@ -1,8 +1,8 @@
-﻿package com.badgeMan;
+﻿package com.badgeman;
 
 
 
-import com.badgeMan.R;
+import com.badgeman.R;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -1,4 +1,4 @@
-package com.badgeMan;
+package com.badgeman;
 
 
 import java.io.File;
@@ -7,7 +7,7 @@ import java.io.File;
 
 import java.net.URL;
 
-import com.badgeMan.R;
+import com.badgeman.R;
 import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;

@@ -1,4 +1,4 @@
-package com.badegMan.wxapi;
+package com.badegman.wxapi;
 
 public class Constants {
 	

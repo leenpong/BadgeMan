@@ -3,12 +3,14 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/desktop/Corner Mark4/Corner Mark1/sample/libs/libammsdk.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/desktop/Corner Mark4/Corner Mark1/sample/libs/weibosdkcore.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/desktop/Corner Mark4/Corner Mark1/sample/libs/open_sdk_r3806_lite.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/desktop/Corner Mark4/Corner Mark1/sample/libs/mta-sdk-1.6.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/desktop/Corner Mark4/Corner Mark1/sample/libs/AndroidLikeButton.jar"/>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="com.badgeman.widget/" kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="/home/linpeng/Android/tem1/sample/libs/AndroidLikeButton.jar"/>
+	<classpathentry kind="lib" path="/home/linpeng/Android/tem1/sample/libs/android-support-v4.jar"/>
+	<classpathentry kind="lib" path="/home/linpeng/Android/tem1/sample/libs/libammsdk.jar"/>
+	<classpathentry kind="lib" path="/home/linpeng/Android/tem1/sample/libs/mta-sdk-1.6.2.jar"/>
+	<classpathentry kind="lib" path="/home/linpeng/Android/tem1/sample/libs/open_sdk_r3806_lite.jar"/>
+	<classpathentry kind="lib" path="/home/linpeng/Android/tem1/sample/libs/renren_android_connect.jar"/>
+	<classpathentry kind="lib" path="/home/linpeng/Android/tem1/sample/libs/weibosdkcore.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

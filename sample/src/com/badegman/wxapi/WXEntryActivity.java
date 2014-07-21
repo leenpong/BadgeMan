@@ -1,8 +1,8 @@
-package com.badegMan.wxapi;
+package com.badegman.wxapi;
 
 
 
-import com.badgeMan.R;
+import com.badgeman.R;
 import com.tencent.mm.sdk.openapi.BaseReq;
 import com.tencent.mm.sdk.openapi.BaseResp;
 import com.tencent.mm.sdk.openapi.ConstantsAPI;

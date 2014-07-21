@@ -1,6 +1,6 @@
-package com.badgeMan;
+package com.badgeman;
 
-import com.badgeMan.R;
+import com.badgeman.R;
 
 public class StrResources {
 	static	public	 String weixinPackage="com.tencent.mm";//微信包名

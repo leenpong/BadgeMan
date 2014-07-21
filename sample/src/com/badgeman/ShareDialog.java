@@ -1,4 +1,4 @@
-package com.badgeMan;
+package com.badgeman;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 
-import com.badegMan.wxapi.weixinUtil;
-import com.badgeMan.R;
+import com.badegman.wxapi.weixinUtil;
+import com.badgeman.R;
 import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WeiboMessage;

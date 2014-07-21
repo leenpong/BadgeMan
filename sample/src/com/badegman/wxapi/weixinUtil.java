@@ -1,4 +1,4 @@
-package com.badegMan.wxapi;
+package com.badegman.wxapi;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

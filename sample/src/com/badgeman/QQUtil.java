@@ -1,4 +1,4 @@
-package com.badgeMan;
+package com.badgeman;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

@@ -1,9 +1,9 @@
-package com.badgeMan;
+package com.badgeman;
 
 
 import java.io.File;
 
-import com.badgeMan.R;
+import com.badgeman.R;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -23,9 +23,9 @@ import android.widget.PopupMenu;
 @SuppressLint({ "NewApi", "SdCardPath" })
 public class SecondFragment extends Fragment {
 	public static final int NONE = 0;
-	public static final int PHOTOHRAPH = 1;// ÅÄÕÕ
-	public static final int PHOTOZOOM = 2; // Ëõ·Å
-	public static final int PHOTORESOULT = 3;// ½á¹û
+	public static final int PHOTOHRAPH = 1;// ï¿½ï¿½ï¿½ï¿½
+	public static final int PHOTOZOOM = 2; // ï¿½ï¿½ï¿½ï¿½
+	public static final int PHOTORESOULT = 3;// ï¿½ï¿½ï¿½
 
 	private static final String IMAGE_FILE_LOCATION = "file:///sdcard/temp.jpg";//temp file
 	Uri imageUri = Uri.parse(IMAGE_FILE_LOCATION);// The Uri to store the big bitmap
@@ -89,20 +89,20 @@ public class SecondFragment extends Fragment {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == NONE)
 			return;
-		// ÅÄÕÕ
+		// ï¿½ï¿½ï¿½ï¿½
 		if (requestCode == PHOTOHRAPH) {
-			// ÉèÖÃÎÄ¼þ±£´æÂ·¾¶ÕâÀï·ÅÔÚ¸úÄ¿Â¼ÏÂ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½Ä¿Â¼ï¿½ï¿½
 			File picture = new File(Environment.getExternalStorageDirectory()
 					+ "/temp.jpg");
 			startPhotoZoom(Uri.fromFile(picture));
 		}
 		if (data == null)
 			return;
-		// ¶ÁÈ¡Ïà²áËõ·ÅÍ¼Æ¬
+		// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
 		if (requestCode == PHOTOZOOM) {
 			startPhotoZoom(data.getData());
 		}
-		// ´¦Àí½á¹û
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (requestCode == PHOTORESOULT) {
 			Bundle extras = data.getExtras();
 			if (extras != null) {
@@ -126,10 +126,10 @@ public class SecondFragment extends Fragment {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, IMAGE_UNSPECIFIED);
 		intent.putExtra("crop", "true");
-		// aspectX aspectY ÊÇ¿í¸ßµÄ±ÈÀý
+		// aspectX aspectY ï¿½Ç¿ï¿½ßµÄ±ï¿½ï¿½ï¿½
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
-		// outputX outputY ÊÇ²Ã¼ôÍ¼Æ¬¿í¸ß
+		// outputX outputY ï¿½Ç²Ã¼ï¿½Í¼Æ¬ï¿½ï¿½ï¿½
 		intent.putExtra("outputX", 300);
 		intent.putExtra("outputY", 300);
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);

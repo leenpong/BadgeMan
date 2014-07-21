@@ -1,4 +1,4 @@
-package com.badgeMan;
+package com.badgeman;
 
 import java.io.File;
 import java.util.ArrayList;
